@@ -1,7 +1,7 @@
-"use client"
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { useUsers } from './UsersContex';
+"use client";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { useUsers } from "./UsersContex";
 
 const RemoveButton: React.FC<{ id: number }> = ({ id }) => {
   const router = useRouter();
@@ -9,9 +9,9 @@ const RemoveButton: React.FC<{ id: number }> = ({ id }) => {
 
   const handleDelete = async () => {
     const res = await fetch(`http://localhost:3500/users/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
     if (res.ok) {

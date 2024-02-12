@@ -32,7 +32,7 @@ const EditButton = ({ id }: { id: number }) => {
             if (res.ok) {
               editUser(id, values.name);
               router.refresh();
-              toggleFormVisibility(); 
+              toggleFormVisibility();
             }
             setSubmitting(false);
           }}
@@ -41,10 +41,14 @@ const EditButton = ({ id }: { id: number }) => {
             <Field
               type="text"
               name="name"
-              placeholder="Enter data"
+              placeholder="Enter name"
               className="border rounded-md px-2 py-1 mb-2 mr-2 text-black"
             />
-            <ErrorMessage name="name" component="div" className="text-red-500" />
+            <ErrorMessage
+              name="name"
+              component="div"
+              className="text-red-500"
+            />
             <div>
               <button
                 type="submit"

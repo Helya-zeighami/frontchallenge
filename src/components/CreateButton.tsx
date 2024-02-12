@@ -43,7 +43,7 @@ const CreateButton: React.FC<CreateButtonProps> = () => {
               const newUser = await res.json();
               addUser(newUser);
               router.refresh();
-              toggleFormVisibility(); 
+              toggleFormVisibility();
             }
             setSubmitting(false);
           }}
@@ -52,10 +52,14 @@ const CreateButton: React.FC<CreateButtonProps> = () => {
             <Field
               type="text"
               name="name"
-              placeholder="Enter data"
+              placeholder="Enter name"
               className="border rounded-md px-2 py-1 mb-2 mr-2 text-black"
             />
-            <ErrorMessage name="name" component="div" className="text-red-500" />
+            <ErrorMessage
+              name="name"
+              component="div"
+              className="text-red-500"
+            />
             <button
               type="submit"
               className="bg-pink-500 text-white rounded-md px-4 py-2 text-lg font-semibold mb-2"

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import Users from "./Users";
 import CreateButton from "./CreateButton";
@@ -22,7 +22,6 @@ const Dashboard = () => {
           <div className="text-center">Loading...</div>
         ) : (
           <div>
-            
             <Users />
             <CreateButton />
           </div>
