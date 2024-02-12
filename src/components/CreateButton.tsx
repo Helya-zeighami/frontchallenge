@@ -1,54 +1,72 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUsers } from "./UsersContex";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 interface CreateButtonProps {
-  onClick?: () => void; 
+  onClick?: () => void;
 }
 
 const CreateButton: React.FC<CreateButtonProps> = () => {
-    const router = useRouter();
-    const [formData, setFormData] = useState("");
-    const [showForm, setShowForm] = useState(false);
-  
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const res = await fetch(`http://localhost:3500/users`, {
-        method: "POST",
-        body: JSON.stringify({ name: formData }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (res.ok) {
-        router.refresh();
-      }
-    };
-  
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData(e.target.value);
-    };
-  
-    return (
-      <div>
-        <button
-          onClick={() => setShowForm(true)}
-          className="inline-block bg-blue-500 text-white rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
-        >
-          Create
-        </button>
-        {showForm && (
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={formData}
-              onChange={handleChange}
-              placeholder="Enter data"
-            />
-            <button type="submit">Submit</button>
-          </form>
-        )}
-      </div>
-    );
+  const router = useRouter();
+  const { addUser } = useUsers();
+  const [showForm, setShowForm] = useState(false);
+
+  const toggleFormVisibility = () => {
+    setShowForm(!showForm);
   };
-  
-  export default CreateButton;
+
+  return (
+    <div className="flex flex-col items-center">
+      <button
+        onClick={toggleFormVisibility}
+        className="bg-pink-500 text-white rounded-full px-[100px] py-3 text-lg font-semibold mb-4"
+      >
+        {showForm ? "Cancel" : "Create"}
+      </button>
+      {showForm && (
+        <Formik
+          initialValues={{ name: "" }}
+          validationSchema={Yup.object({
+            name: Yup.string().required("Name is required"),
+          })}
+          onSubmit={async (values, { setSubmitting }) => {
+            const res = await fetch(`http://localhost:3500/users`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ name: values.name }),
+            });
+            if (res.ok) {
+              const newUser = await res.json();
+              addUser(newUser);
+              router.refresh();
+              toggleFormVisibility(); 
+            }
+            setSubmitting(false);
+          }}
+        >
+          <Form className="text-center">
+            <Field
+              type="text"
+              name="name"
+              placeholder="Enter data"
+              className="border rounded-md px-2 py-1 mb-2 mr-2 text-black"
+            />
+            <ErrorMessage name="name" component="div" className="text-red-500" />
+            <button
+              type="submit"
+              className="bg-pink-500 text-white rounded-md px-4 py-2 text-lg font-semibold mb-2"
+            >
+              Submit
+            </button>
+          </Form>
+        </Formik>
+      )}
+    </div>
+  );
+};
+
+export default CreateButton;

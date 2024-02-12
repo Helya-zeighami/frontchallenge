@@ -7,3 +7,15 @@ export type User = {
     website?: string;
   };
   
+  export interface Users {
+    id: number;
+    name: string;
+  }
+  
+  export interface UsersContextType {
+    users: Users[];
+    addUser: (newUser: User) => void;
+    editUser: (userId: number, newName: string) => void;
+    removeUser: (userId: number) => void;
+  }
+  
