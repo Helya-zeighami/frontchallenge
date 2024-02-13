@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useUsers } from "./UsersContex";
+import { useUsers } from "./UsersContext";
 
 const RemoveButton: React.FC<{ id: number }> = ({ id }) => {
   const router = useRouter();

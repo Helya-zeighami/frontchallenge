@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useUsers } from "./UsersContex";
+import { useUsers } from "./UsersContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 

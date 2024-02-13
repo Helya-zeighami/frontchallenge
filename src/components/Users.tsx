@@ -1,6 +1,6 @@
 import React from "react";
 import UsersCard from "./UsersCard";
-import { useUsers } from "./UsersContex";
+import { useUsers } from "./UsersContext";
 
 const Users: React.FC = () => {
   const { users } = useUsers();
