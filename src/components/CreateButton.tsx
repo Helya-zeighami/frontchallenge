@@ -32,7 +32,7 @@ const CreateButton: React.FC<CreateButtonProps> = () => {
             name: Yup.string().required("Name is required"),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            const res = await fetch(`http://localhost:3000/users`, {
+            const res = await fetch(`https://json-server-lyko.vercel.app/users`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
