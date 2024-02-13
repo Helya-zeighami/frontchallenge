@@ -19,12 +19,6 @@ const CreateButton: React.FC<CreateButtonProps> = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <button
-        onClick={toggleFormVisibility}
-        className="bg-pink-500 text-white rounded-full px-[100px] py-3 text-lg font-semibold mb-4"
-      >
-        {showForm ? "Cancel" : "Create"}
-      </button>
       {showForm && (
         <Formik
           initialValues={{ name: "" }}
@@ -32,13 +26,16 @@ const CreateButton: React.FC<CreateButtonProps> = () => {
             name: Yup.string().required("Name is required"),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            const res = await fetch(`https://json-server-lyko.vercel.app/users`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ name: values.name }),
-            });
+            const res = await fetch(
+              `https://json-server-lyko.vercel.app/users`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name: values.name }),
+              }
+            );
             if (res.ok) {
               const newUser = await res.json();
               addUser(newUser);
@@ -69,6 +66,12 @@ const CreateButton: React.FC<CreateButtonProps> = () => {
           </Form>
         </Formik>
       )}
+      <button
+        onClick={toggleFormVisibility}
+        className="bg-pink-500 text-white rounded-full px-[100px] py-3 text-lg font-semibold mb-4"
+      >
+        {showForm ? "Cancel" : "Create"}
+      </button>
     </div>
   );
 };

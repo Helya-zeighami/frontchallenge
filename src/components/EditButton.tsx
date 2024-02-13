@@ -22,13 +22,16 @@ const EditButton = ({ id }: { id: number }) => {
             name: Yup.string().required("Name is required"),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            const res = await fetch(`https://json-server-lyko.vercel.app/users/${id}`, {
-              method: "PUT",
-              body: JSON.stringify({ name: values.name }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
+            const res = await fetch(
+              `https://json-server-lyko.vercel.app/users/${id}`,
+              {
+                method: "PUT",
+                body: JSON.stringify({ name: values.name }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
             if (res.ok) {
               editUser(id, values.name);
               router.refresh();
