@@ -8,14 +8,8 @@ yarn
 npm
 
 ```
-Second, for runnign the Json server:
 
-```bash
-npx json-server -p 3500 -w src/data/db.json
-
-```
-
-Third, run the development server:
+Second, run the development server:
 
 ```bash
 npm run dev
