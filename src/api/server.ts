@@ -1,7 +1,7 @@
 // JSON Server module
 const jsonServer = require("json-server");
 const server = jsonServer.create();
-const router = jsonServer.router("data/db.json");
+const router = jsonServer.router("src/data/db.json");
 
 // Make sure to use the default middleware
 const middlewares = jsonServer.defaults();
@@ -11,7 +11,7 @@ server.use(middlewares);
 server.use(
   // Add custom route here if needed
   jsonServer.rewriter({
-    "/api/*": "/$1",
+    "src/api/*": "/$1",
   })
 );
 server.use(router);
