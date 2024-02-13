@@ -1,4 +1,4 @@
-This is a Front-End interview code
+This is a Front-End interview code. I have used Formik for form validation, Nextjs, Typescript, json-server for mocking the api and vercel for deployment. 
 
 ## Getting Started
 First, intsall the packages by running:
