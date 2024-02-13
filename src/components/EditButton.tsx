@@ -1,5 +1,6 @@
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { updateUser } from "@/lib/users";
 import { useUsers } from "./UsersContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -22,17 +23,8 @@ const EditButton = ({ id }: { id: number }) => {
             name: Yup.string().required("Name is required"),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            const res = await fetch(
-              `https://json-server-lyko.vercel.app/users/${id}`,
-              {
-                method: "PUT",
-                body: JSON.stringify({ name: values.name }),
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-            if (res.ok) {
+            const success = await updateUser(id, values.name);
+            if (success) {
               editUser(id, values.name);
               router.refresh();
               toggleFormVisibility();

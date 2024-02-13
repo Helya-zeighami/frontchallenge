@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useUsers } from "./UsersContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { API_URL } from "@/lib/users";
 
 interface CreateButtonProps {
   onClick?: () => void;
@@ -26,16 +27,13 @@ const CreateButton: React.FC<CreateButtonProps> = () => {
             name: Yup.string().required("Name is required"),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            const res = await fetch(
-              `https://json-server-lyko.vercel.app/users`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ name: values.name }),
-              }
-            );
+            const res = await fetch(`${API_URL}/users`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ name: values.name }),
+            });
             if (res.ok) {
               const newUser = await res.json();
               addUser(newUser);

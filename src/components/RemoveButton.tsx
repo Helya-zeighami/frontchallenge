@@ -1,6 +1,6 @@
-"use client";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { deleteUser } from "@/lib/users";
 import { useUsers } from "./UsersContext";
 
 const RemoveButton: React.FC<{ id: number }> = ({ id }) => {
@@ -8,13 +8,8 @@ const RemoveButton: React.FC<{ id: number }> = ({ id }) => {
   const { removeUser } = useUsers();
 
   const handleDelete = async () => {
-    const res = await fetch(`https://json-server-lyko.vercel.app/users/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (res.ok) {
+    const success = await deleteUser(id);
+    if (success) {
       router.refresh();
       removeUser(id);
     }
