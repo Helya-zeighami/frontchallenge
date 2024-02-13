@@ -8,7 +8,7 @@ const RemoveButton: React.FC<{ id: number }> = ({ id }) => {
   const { removeUser } = useUsers();
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:3500/users/${id}`, {
+    const res = await fetch(`http://localhost:3000/users/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
